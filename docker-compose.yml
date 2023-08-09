@@ -3,9 +3,6 @@ services:
   api1:
     image: carlosalm/desafio-rinha-de-backend-2023-q3:latest
     hostname: api1
-    build:
-      context: .
-      dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
     depends_on:
@@ -22,9 +19,6 @@ services:
   api2:
     image: carlosalm/desafio-rinha-de-backend-2023-q3:latest
     hostname: api2
-    build:
-      context: .
-      dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
     depends_on:
