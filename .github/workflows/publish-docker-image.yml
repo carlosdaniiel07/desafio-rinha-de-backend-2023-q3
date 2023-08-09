@@ -9,7 +9,7 @@ jobs:
     name: Build and push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:
-      DOCKER_IMAGE_NAME: carlosalm/desafio-rinha-de-backend-2023-q3:${{ github.sha }}
+      DOCKER_IMAGE_NAME: carlosalm/desafio-rinha-de-backend-2023-q3
 
     steps:
       - name: Check out the repo
@@ -19,7 +19,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker image build -t ${{ env.DOCKER_IMAGE_NAME }} .
+        run: docker image build -t ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }} -t ${{ env.DOCKER_IMAGE_NAME }}:latest .
 
       - name: Push Docker image
-        run: docker image push ${{ env.DOCKER_IMAGE_NAME }}
+        run: docker image push --all-tags ${{ env.DOCKER_IMAGE_NAME }}
