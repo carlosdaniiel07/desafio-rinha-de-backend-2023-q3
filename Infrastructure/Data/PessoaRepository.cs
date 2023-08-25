@@ -20,6 +20,18 @@ namespace DesafioBackEnd.Infrastructure.Data
             var mongoDatabase = mongoClient.GetDatabase(connectionString.Split('/').LastOrDefault());
 
             _collection = mongoDatabase.GetCollection<Pessoa>("pessoa");
+
+            CreateIndexes();
+        }
+
+        private void CreateIndexes()
+        {
+            var apelidoIndexDefinition = Builders<Pessoa>.IndexKeys.Ascending(pessoa => pessoa.Apelido);
+            var indexes = new CreateIndexModel<Pessoa>(apelidoIndexDefinition, new CreateIndexOptions
+            {
+                Unique = true,
+            });
+            _collection.Indexes.CreateOne(indexes);
         }
 
         public async Task<IEnumerable<Pessoa>> GetAllAsync(string searchCriteria)
